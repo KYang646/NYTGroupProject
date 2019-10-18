@@ -15,6 +15,7 @@
 		746A7E01235A3D760029FBE9 /* NYTimesGroupProjTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746A7E00235A3D760029FBE9 /* NYTimesGroupProjTests.swift */; };
 		746A7E0D235A3ECB0029FBE9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746A7E0C235A3ECA0029FBE9 /* SettingsViewController.swift */; };
 		746A7E0F235A3EDB0029FBE9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746A7E0E235A3EDB0029FBE9 /* FavoritesViewController.swift */; };
+		D808CAE9235A597D00EB2093 /* NYTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAE8235A597D00EB2093 /* NYTAPI.swift */; };
 		970896F7235A5DCC003E2B10 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970896F6235A5DCC003E2B10 /* NetworkHelper.swift */; };
 		97089701235A6103003E2B10 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97089700235A6103003E2B10 /* BookCollectionViewCell.swift */; };
 		97089704235A6140003E2B10 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97089703235A6140003E2B10 /* PersistenceHelper.swift */; };
@@ -45,6 +46,7 @@
 		746A7E02235A3D760029FBE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		746A7E0C235A3ECA0029FBE9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		746A7E0E235A3EDB0029FBE9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		D808CAE8235A597D00EB2093 /* NYTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTAPI.swift; sourceTree = "<group>"; };
 		970896F6235A5DCC003E2B10 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		97089700235A6103003E2B10 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		97089703235A6140003E2B10 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				746A7DE9235A3D6F0029FBE9 /* AppDelegate.swift */,
 				746A7DEB235A3D6F0029FBE9 /* SceneDelegate.swift */,
+				D808CAE8235A597D00EB2093 /* NYTAPI.swift */,
 				970896FF235A60DF003E2B10 /* Views */,
 				746A7E0B235A3EAB0029FBE9 /* Controllers */,
 				97089702235A612D003E2B10 /* Persistence */,
@@ -249,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D808CAE9235A597D00EB2093 /* NYTAPI.swift in Sources */,
 				97089708235A6183003E2B10 /* NYTimesBookAPIClient.swift in Sources */,
 				746A7DEE235A3D6F0029FBE9 /* bestSellersViewController.swift in Sources */,
 				746A7DEA235A3D6F0029FBE9 /* AppDelegate.swift in Sources */,
