@@ -71,7 +71,7 @@ class bestSellersViewController: UIViewController {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             genrePicker.widthAnchor.constraint(equalTo: view.widthAnchor),
-            genrePicker.heightAnchor.constraint(equalToConstant: 400),
+            genrePicker.heightAnchor.constraint(equalToConstant: 450),
             genrePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             
         ])
@@ -99,6 +99,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
+        
         
         bookCell.summaryTextView.text = "hi"
         return bookCell
