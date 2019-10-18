@@ -57,4 +57,6 @@ struct BookDetail: Codable {
         case primaryIsbn13 = "primary_isbn13"
         case primaryIsbn10 = "primary_isbn10"
     }
+    
+    
 }
