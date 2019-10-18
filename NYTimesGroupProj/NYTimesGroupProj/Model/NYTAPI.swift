@@ -8,23 +8,21 @@
 
 import Foundation
 
-//MARK: -- Endpoint Categories
-/*
- -------FICTION-----------------
- combined-print-and-e-book-fiction
- hardcover-fiction
- paperback-trade-nonfiction
- -------NONFICTION--------------
- combined-print-and-e-book-nonfiction
- hardcover-nonfiction
- paperback-nonfiction
- advice-how-to-and-miscellanous
- -------CHILDREN’S--------------
- childrens-middle-grade-hardcover
- picture-books
- series-books
- young-adult-hardcover
-*/
+//MARK: -- New York Times Categories
+struct NYTListName: Codable {
+    let listNameResult: [ListNameResult]
+}
+
+struct ListNameResult: Codable {
+  let listName: String
+  let displayName: String
+  
+  private enum CodingKeys: String, CodingKey {
+        case listName = "list_name"
+        case displayName = "display_name"
+       
+    }
+}
 
 //MARK: -- New York Times
 struct NYTime: Codable {
