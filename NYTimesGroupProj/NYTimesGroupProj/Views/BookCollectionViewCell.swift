@@ -75,6 +75,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setConstraints()
+        self.layer.cornerRadius = 10
         backgroundColor = .white
     }
     
