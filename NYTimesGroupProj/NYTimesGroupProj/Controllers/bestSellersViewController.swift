@@ -47,6 +47,47 @@ class bestSellersViewController: UIViewController {
         return picker
     }()
     
+    var books = [SearchResult]() {
+        didSet {
+            booksCollectionView.reloadData()
+        }
+    }
+    
+    var categories = [ListNameResult]() {
+        didSet {
+            genrePicker.reloadAllComponents()
+        }
+    }
+    
+    var selectedCategory = String() {
+        didSet {
+            loadBooksInSelectedCategory()
+            print(selectedCategory)
+        }
+    }
+    
+    private func loadCategoriesData() {
+        NYTimesCategoriesAPIClient.shared.getCategories { (result) in
+            switch result {
+            case .success(let categoryData):
+                self.categories = categoryData
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func loadBooksInSelectedCategory() {
+        NYTimesBooksAPIClient.shared.getCategories(categoryName: selectedCategory) { (result) in
+            switch result {
+            case .success(let booksFromOnline):
+                self.books = booksFromOnline
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     //MARK: -- Constraints
     private func setCollectionViewConstraints() {
@@ -87,6 +128,7 @@ class bestSellersViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
         setConstraints()
+        loadCategoriesData()
         
     }
 }
@@ -94,14 +136,14 @@ class bestSellersViewController: UIViewController {
 //MARK: -- Extensions
 extension bestSellersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
+        let specificBook = books[indexPath.row]
         
-        
-        bookCell.summaryTextView.text = "hi"
+        bookCell.configureCell(from: specificBook)
         return bookCell
     }
 }
@@ -123,17 +165,16 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let genreNames = ["Hardcover Fiction", "Hardcover Non-Fiction", "Mass Market Paperback", "Paperback Non Fiction", "E-Book Fiction"]
-        return genreNames.count
+        return categories.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let genreNames = ["Hardcover Fiction", "Hardcover Non-Fiction", "Mass Market Paperback", "Paperback Non Fiction", "E-Book Fiction"]
-        return genreNames[row]
+    
+        return categories[row].displayName
     }
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("You selected row \(row)")
+        selectedCategory = categories[row].listNameEncoded
     }
 }
