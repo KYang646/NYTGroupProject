@@ -21,7 +21,8 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     lazy var summaryTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .green
+        textView.textAlignment = .center
+//        textView.backgroundColor = .green
         textView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textView)
         textView.isUserInteractionEnabled = false
@@ -30,10 +31,21 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     lazy var weeksLabel: UILabel = {
         let label = UILabel()
-        label.text = "I JUST LOVE TAKING SHITS IN COLLECTION VIEWS"
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.italicSystemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(label)
+        return label
+    }()
+    
+    lazy var bookTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label)
         return label
@@ -52,12 +64,12 @@ class BookCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             summaryTextView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             summaryTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
-            summaryTextView.widthAnchor.constraint(equalToConstant: 300),
+            summaryTextView.widthAnchor.constraint(equalToConstant: 340),
             summaryTextView.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
     
-    private func setLabelConstraints() {
+    private func setWeeksLabelConstraints() {
         NSLayoutConstraint.activate([
             weeksLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             weeksLabel.topAnchor.constraint(equalTo: summaryTextView.topAnchor, constant: -50),
@@ -66,10 +78,25 @@ class BookCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    private func setTitleLabelConstraints() {
+        NSLayoutConstraint.activate([
+            bookTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            bookTitleLabel.topAnchor.constraint(equalTo: weeksLabel.topAnchor, constant: -30),
+            bookTitleLabel.widthAnchor.constraint(equalTo: summaryTextView.widthAnchor),
+            bookTitleLabel.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
     private func setConstraints(){
         setConstraintsForBookImage()
         setSummaryTextViewConstraints()
-        setLabelConstraints()
+        setWeeksLabelConstraints()
+        setTitleLabelConstraints()
+    }
+    
+    public func configureCell(from book: SearchResult) {
+        bookTitleLabel.text = book.bookDetails[0].title.capitalized
+        summaryTextView.text = book.bookDetails[0].bookDetailDescription
+        weeksLabel.text = "\(book.weeksOnList) weeks on best seller.."
     }
     
     override init(frame: CGRect) {

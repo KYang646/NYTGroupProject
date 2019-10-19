@@ -10,24 +10,26 @@ import Foundation
 
 //MARK: -- New York Times Categories
 struct NYTListName: Codable {
-    let listNameResult: [ListNameResult]
+    let results: [ListNameResult]
 }
 
 struct ListNameResult: Codable {
-  let listName: String
-  let displayName: String
-  
-  private enum CodingKeys: String, CodingKey {
+    let listName: String
+    let displayName: String
+    let listNameEncoded: String
+    
+    private enum CodingKeys: String, CodingKey {
         case listName = "list_name"
         case displayName = "display_name"
-       
+        case listNameEncoded = "list_name_encoded"
+        
     }
 }
 
 //MARK: -- New York Times
 struct NYTime: Codable {
     let results: [SearchResult]
-  
+    
 }
 // MARK: -- SearchResults
 struct SearchResult: Codable {
@@ -35,7 +37,7 @@ struct SearchResult: Codable {
     let weeksOnList: Int
     let amazonProductURL: String
     let bookDetails: [BookDetail]
-  
+    
     private enum CodingKeys: String, CodingKey {
         case displayName = "display_name"
         case weeksOnList = "weeks_on_list"
@@ -49,7 +51,7 @@ struct BookDetail: Codable {
     let bookDetailDescription: String
     let author: String
     let primaryIsbn13, primaryIsbn10: String
-  
+    
     private enum CodingKeys: String, CodingKey {
         case title
         case bookDetailDescription = "description"
@@ -57,6 +59,4 @@ struct BookDetail: Codable {
         case primaryIsbn13 = "primary_isbn13"
         case primaryIsbn10 = "primary_isbn10"
     }
-    
-    
 }
