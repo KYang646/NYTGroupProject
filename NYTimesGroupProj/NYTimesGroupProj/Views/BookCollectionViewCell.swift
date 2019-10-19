@@ -97,6 +97,15 @@ class BookCollectionViewCell: UICollectionViewCell {
         bookTitleLabel.text = book.bookDetails[0].title.capitalized
         summaryTextView.text = book.bookDetails[0].bookDetailDescription
         weeksLabel.text = "\(book.weeksOnList) weeks on best seller.."
+        
+        ImageHelper.shared.getImage(urlStr: book.bookDetails[0].primaryIsbn10) { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let imageFromOnline):
+                self.bookImage.image = imageFromOnline
+            }
+        }
     }
     
     override init(frame: CGRect) {

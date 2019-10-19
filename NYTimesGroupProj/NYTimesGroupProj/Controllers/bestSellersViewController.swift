@@ -89,6 +89,8 @@ class bestSellersViewController: UIViewController {
         }
     }
     
+    
+    
     //MARK: -- Constraints
     private func setCollectionViewConstraints() {
         NSLayoutConstraint.activate([
@@ -124,6 +126,8 @@ class bestSellersViewController: UIViewController {
         setPickerConstraints()
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
@@ -142,8 +146,31 @@ extension bestSellersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
         let specificBook = books[indexPath.row]
-        
         bookCell.configureCell(from: specificBook)
+        
+        
+        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[1].isbn10) { (result) in
+            switch result {
+            case .success(let googleBookData):
+                print(googleBookData)
+                ImageHelper.shared.getImage(urlStr: googleBookData.items[0].volumeInfo.imageLinks.thumbnail) { (result) in
+                    switch result {
+                    case .success(let imageFromAPI):
+                        DispatchQueue.main.async {
+                            bookCell.bookImage.image = imageFromAPI
+                        }
+                        
+                        
+                    case .failure(let error):
+                        print(error)
+                        
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
         return bookCell
     }
 }
@@ -169,7 +196,7 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    
+        
         return categories[row].displayName
     }
     
