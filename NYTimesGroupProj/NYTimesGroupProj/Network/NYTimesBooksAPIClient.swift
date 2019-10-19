@@ -16,7 +16,7 @@ final class NYTimesBooksAPIClient {
     
     func getCategories(categoryName: String, completionHandler: @escaping (Result<[SearchResult], AppError>) -> Void) {
          let urlStr = "https://api.nytimes.com/svc/books/v3/lists.json?api-key=\(apiKey)&list=\(categoryName)"
-         print(urlStr)
+        
          guard let url = URL(string: urlStr) else {
              completionHandler(.failure(.badURL))
              return

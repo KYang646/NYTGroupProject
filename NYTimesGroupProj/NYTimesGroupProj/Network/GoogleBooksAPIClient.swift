@@ -1,5 +1,5 @@
 //
-//  NYTimesBookAPIClient.swift
+//  GoogleBooksAPIClient.swift
 //  NYTimesGroupProj
 //
 //  Created by Anthony Gonzalez on 10/18/19.
@@ -8,15 +8,14 @@
 
 import Foundation
 
-final class NYTimesCategoriesAPIClient {
+final class GoogleBooksAPIClient {
     private init() {}
     
-    private var apiKey = "D8XGY4XP3kgNv2V9li2f192mdAOKesVe"
-    static let shared = NYTimesCategoriesAPIClient()
+    static let shared = GoogleBooksAPIClient()
     
-    func getCategories(completionHandler: @escaping (Result<[ListNameResult], AppError>) -> Void) {
-         let urlStr = "https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=D8XGY4XP3kgNv2V9li2f192mdAOKesVe"
-         
+    func getGoogleBooks(isbn10: String, completionHandler: @escaping (Result<GoogleBook, AppError>) -> Void) {
+         let urlStr = "https://www.googleapis.com/books/v1/volumes?q=+isbn:\(isbn10)"
+         print(urlStr)
          guard let url = URL(string: urlStr) else {
              completionHandler(.failure(.badURL))
              return
@@ -28,8 +27,8 @@ final class NYTimesCategoriesAPIClient {
                  completionHandler(.failure(error))
              case .success(let data):
                  do {
-                     let ListNameResultWrapper = try JSONDecoder().decode(NYTListName.self, from: data)
-                    completionHandler(.success(ListNameResultWrapper.results))
+                     let bookWrapper = try JSONDecoder().decode(GoogleBook.self, from: data)
+                    completionHandler(.success(bookWrapper))
                  } catch {
                      completionHandler(.failure(.couldNotParseJSON(rawError: error)))
                  }
