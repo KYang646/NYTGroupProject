@@ -148,8 +148,9 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
         
+        let index = specificBook.isbns.indexExists(1) == true ? 1 : 0
         
-        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[1].isbn10) { (result) in
+        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[index].isbn10) { (result) in
             switch result {
             case .success(let googleBookData):
                 print(googleBookData)
@@ -204,4 +205,10 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCategory = categories[row].listNameEncoded
     }
+}
+
+extension Array {
+  func indexExists(_ index: Int) -> Bool {
+    return self.indices.contains(index)
+  }
 }
