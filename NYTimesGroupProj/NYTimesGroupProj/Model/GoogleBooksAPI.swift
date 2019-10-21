@@ -8,3 +8,18 @@
 
 import Foundation
 
+struct GoogleBook: Codable {
+    let items: [Item]
+}
+
+struct Item: Codable {
+    let volumeInfo: VolumeInfo
+}
+
+struct VolumeInfo: Codable {
+    let imageLinks: ImageLinks
+}
+
+struct ImageLinks: Codable {
+    let thumbnail: String
+}
