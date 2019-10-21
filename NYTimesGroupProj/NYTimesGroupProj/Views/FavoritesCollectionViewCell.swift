@@ -21,36 +21,32 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     imageView.backgroundColor = .red
     self.addSubview(imageView)
     return imageView
-    
   }()
+  
+  lazy var weeksLabel: UILabel = {
+     let label = UILabel()
+     label.textAlignment = .center
+     label.text = "Weeks Label"
+     label.backgroundColor = .brown
+     
+     label.adjustsFontSizeToFitWidth = true
+     label.textColor = .black
+     label.font = UIFont.italicSystemFont(ofSize: 15)
+     self.addSubview(label)
+     return label
+   }()
   
   lazy var summaryTextView: UITextView = {
     let textView = UITextView()
     textView.textAlignment = .center
+    textView.text = "Text View"
+    textView.backgroundColor = .cyan
+    
     self.addSubview(textView)
     textView.isUserInteractionEnabled = false
     return textView
   }()
   
-  lazy var weeksLabel: UILabel = {
-    let label = UILabel()
-    label.textAlignment = .center
-    label.adjustsFontSizeToFitWidth = true
-    label.textColor = .black
-    label.font = UIFont.italicSystemFont(ofSize: 15)
-    self.addSubview(label)
-    return label
-  }()
-  
-  lazy var bookTitleLabel: UILabel = {
-    let label = UILabel()
-    label.textAlignment = .center
-    label.adjustsFontSizeToFitWidth = true
-    label.textColor = .black
-    label.font = UIFont.boldSystemFont(ofSize: 18)
-    self.addSubview(label)
-    return label
-  }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -65,28 +61,17 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
   
   private func setConstraints() {
     setBookImageConstraints()
-    setSummaryTextViewConstraints()
     setWeeksLabelConstraints()
-    setTitleLabelConstraints()
+    setSummaryTextViewConstraints()
   }
   
   private func setBookImageConstraints(){
     bookImage.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      bookImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+     bookImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
       bookImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
       bookImage.widthAnchor.constraint(equalToConstant: 100),
-      bookImage.heightAnchor.constraint(equalToConstant: 150)
-    ])
-  }
-  
-  private func setSummaryTextViewConstraints(){
-    summaryTextView.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      summaryTextView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-      summaryTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
-      summaryTextView.widthAnchor.constraint(equalToConstant: 340),
-      summaryTextView.heightAnchor.constraint(equalToConstant: 70),
+      bookImage.heightAnchor.constraint(equalToConstant: 100),
     ])
   }
   
@@ -94,19 +79,20 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     weeksLabel.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       weeksLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-      weeksLabel.topAnchor.constraint(equalTo: summaryTextView.topAnchor, constant: -50),
+      weeksLabel.topAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 10),
       weeksLabel.widthAnchor.constraint(equalTo: summaryTextView.widthAnchor),
-      weeksLabel.heightAnchor.constraint(equalToConstant: 60)
+      weeksLabel.heightAnchor.constraint(equalToConstant: 30)
     ])
   }
   
-  private func setTitleLabelConstraints() {
-    bookTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+  private func setSummaryTextViewConstraints(){
+    summaryTextView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      bookTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-      bookTitleLabel.topAnchor.constraint(equalTo: weeksLabel.topAnchor, constant: -30),
-      bookTitleLabel.widthAnchor.constraint(equalTo: summaryTextView.widthAnchor),
-      bookTitleLabel.heightAnchor.constraint(equalToConstant: 60)
+      summaryTextView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+      summaryTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+      summaryTextView.topAnchor.constraint(equalTo: weeksLabel.bottomAnchor),
+      summaryTextView.widthAnchor.constraint(equalTo: self.widthAnchor),
+      summaryTextView.heightAnchor.constraint(equalToConstant: 90),
     ])
-  }
+}
 }
