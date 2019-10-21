@@ -27,17 +27,6 @@ class bestSellersViewController: UIViewController {
         return collectionView
     }()
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "NYT Bestsellers"
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        
-        return label
-    }()
-    
     lazy var genrePicker: UIPickerView = {
         let picker = UIPickerView()
         picker.dataSource = self
@@ -172,6 +161,19 @@ extension bestSellersViewController: UICollectionViewDataSource {
             }
         }
         return bookCell
+    }
+}
+
+extension bestSellersViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let detailVC = DetailViewController()
+        let currentBook = books[indexPath.row]
+        detailVC.currentBook = currentBook
+    
+        
+        self.navigationController?
+            .pushViewController(detailVC, animated: true)
     }
 }
 

@@ -56,6 +56,6 @@ class DetailViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
         setBookImageConstraints()
         setTextViewConstraints()
-//        bookTextView.text = currentBook.bookDetails[0].bookDetailDescription
+        bookTextView.text = currentBook.bookDetails[0].bookDetailDescription
     }
 }
