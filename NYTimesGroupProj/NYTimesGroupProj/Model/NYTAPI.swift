@@ -47,7 +47,6 @@ struct SearchResult: Codable {
     }
 }
 // MARK: - BookDetail
-
 struct ISBN: Codable {
     let isbn10: String
     let isbn13: String
