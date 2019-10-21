@@ -163,6 +163,9 @@ extension bestSellersViewController: UICollectionViewDataSource {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3a192ffa925fd469670fca633c7623ea8d9c1757
 extension bestSellersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -175,9 +178,15 @@ extension bestSellersViewController: UICollectionViewDelegate {
             .pushViewController(detailVC, animated: true)
     }
 }
+<<<<<<< HEAD
 =======
 extension bestSellersViewController: UICollectionViewDelegate {}
 >>>>>>> f6f7aad764cb1a16ae1f8d395fe5d50e806fb649
+=======
+
+extension bestSellersViewController: UICollectionViewDelegate {}
+
+>>>>>>> 3a192ffa925fd469670fca633c7623ea8d9c1757
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
