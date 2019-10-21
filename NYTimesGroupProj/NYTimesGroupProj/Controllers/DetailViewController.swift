@@ -34,12 +34,21 @@ class DetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         //button.imageView?.image = #imageLiteral(resourceName: "amazon-icon")
         button.setImage(#imageLiteral(resourceName: "amazon-icon"), for: .normal)
+        button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
         view.addSubview(button)
         
         return button
     }()
     
     var currentBook: SearchResult!
+    
+    @objc func favoritesButtonPressed(){
+        let favoritedBook = currentBook
+       
+        do {
+            try? FavoriteBookPersistenceHelper.manager.save(newBook: favoritedBook!)
+        }
+    }
     
     func setButtonConstraints() {
         NSLayoutConstraint.activate([

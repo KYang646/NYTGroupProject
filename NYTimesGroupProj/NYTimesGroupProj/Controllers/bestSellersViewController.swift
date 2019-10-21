@@ -88,15 +88,6 @@ class bestSellersViewController: UIViewController {
         ])
     }
     
-    private func setTitleLabelConstraints() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
     private func setPickerConstraints() {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -109,7 +100,6 @@ class bestSellersViewController: UIViewController {
     
     private func setConstraints(){
         setCollectionViewConstraints()
-        setTitleLabelConstraints()
         setPickerConstraints()
     }
     
@@ -174,9 +164,6 @@ extension bestSellersViewController: UICollectionViewDelegate {
             .pushViewController(detailVC, animated: true)
     }
 }
-
-extension bestSellersViewController: UICollectionViewDelegate {}
-
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
