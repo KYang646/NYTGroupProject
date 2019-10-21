@@ -25,17 +25,6 @@ class bestSellersViewController: UIViewController {
         return collectionView
     }()
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "NYT Bestsellers"
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        
-        return label
-    }()
-    
     lazy var genrePicker: UIPickerView = {
         let picker = UIPickerView()
         picker.dataSource = self
@@ -99,15 +88,6 @@ class bestSellersViewController: UIViewController {
         ])
     }
     
-    private func setTitleLabelConstraints() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
     private func setPickerConstraints() {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -120,7 +100,6 @@ class bestSellersViewController: UIViewController {
     
     private func setConstraints(){
         setCollectionViewConstraints()
-        setTitleLabelConstraints()
         setPickerConstraints()
     }
     
@@ -173,7 +152,18 @@ extension bestSellersViewController: UICollectionViewDataSource {
     }
 }
 
-extension bestSellersViewController: UICollectionViewDelegate {}
+extension bestSellersViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let detailVC = DetailViewController()
+        let currentBook = books[indexPath.row]
+        detailVC.currentBook = currentBook
+    
+        
+        self.navigationController?
+            .pushViewController(detailVC, animated: true)
+    }
+}
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

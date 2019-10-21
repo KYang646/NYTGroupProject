@@ -22,17 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let bestSellersVC = bestSellersViewController()
         let settingsVC = SettingsViewController()
         let favoritesVC = FavoritesViewController()
-        let detailVC = DetailViewController()
-        let navigationVC = UINavigationController(rootViewController: detailVC)
+        let navigationVC = UINavigationController(rootViewController: bestSellersVC)
         
-        tabBarVC.viewControllers = [bestSellersVC, settingsVC, favoritesVC, navigationVC]
+        tabBarVC.viewControllers = [navigationVC, settingsVC, favoritesVC]
         
-        bestSellersVC.tabBarItem.title = "Best Sellers"
+        navigationVC.tabBarItem.title = "Best Sellers"
         favoritesVC.tabBarItem.title = "Favorites"
         settingsVC.tabBarItem.title = "Settings"
-        navigationVC.tabBarItem.title = "Detail VC"
-        
-    
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
