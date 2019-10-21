@@ -9,9 +9,6 @@
 import UIKit
 
 class FavoritesViewController: UIViewController {
-    
-    
-    
     //MARK: -- Properties
     lazy var favsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,6 +19,7 @@ class FavoritesViewController: UIViewController {
         collectionView.register(FavoritesCollectionViewCell.self, forCellWithReuseIdentifier: "favoritesCell")
         
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
         return collectionView
@@ -49,10 +47,8 @@ class FavoritesViewController: UIViewController {
     
     private func setCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            favsCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            favsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            favsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            favsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor)
+          favsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+          favsCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),favsCollectionView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),favsCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -75,6 +71,6 @@ extension FavoritesViewController: UICollectionViewDelegate {}
 
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 350, height: 350)
+        return CGSize(width: 350, height: 400)
     }
 }
