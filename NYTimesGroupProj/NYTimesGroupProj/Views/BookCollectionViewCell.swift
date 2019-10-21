@@ -62,9 +62,9 @@ class BookCollectionViewCell: UICollectionViewCell {
     private func setSummaryTextViewConstraints(){
         NSLayoutConstraint.activate([
             summaryTextView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            summaryTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            summaryTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
             summaryTextView.widthAnchor.constraint(equalToConstant: 340),
-            summaryTextView.heightAnchor.constraint(equalToConstant: 70),
+            summaryTextView.heightAnchor.constraint(equalToConstant: 90),
         ])
     }
     
