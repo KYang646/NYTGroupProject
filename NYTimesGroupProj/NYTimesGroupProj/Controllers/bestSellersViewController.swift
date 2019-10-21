@@ -21,8 +21,6 @@ class bestSellersViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "bookCell")
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         return collectionView
     }()
@@ -51,7 +49,7 @@ class bestSellersViewController: UIViewController {
     var selectedCategory = String() {
         didSet {
             loadBooksInSelectedCategory()
-            print(selectedCategory)
+//            print(selectedCategory)
         }
     }
     
@@ -164,6 +162,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
     }
 }
 
+<<<<<<< HEAD
 extension bestSellersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -176,6 +175,9 @@ extension bestSellersViewController: UICollectionViewDelegate {
             .pushViewController(detailVC, animated: true)
     }
 }
+=======
+extension bestSellersViewController: UICollectionViewDelegate {}
+>>>>>>> f6f7aad764cb1a16ae1f8d395fe5d50e806fb649
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
