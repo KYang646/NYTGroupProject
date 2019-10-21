@@ -9,17 +9,18 @@
 import Foundation
 
 struct FavoriteBookPersistenceHelper {
-//    static let manager = FavoriteBookPersistenceHelper()
-//
-//    func save(newBook: MODELNAME) throws {
-//        try persistenceHelper.save(newElement: newBook)
-//    }
-//
-//    func getBooks() throws -> [MODELNAME] {
-//        return try persistenceHelper.getObjects()
-//    }
-//
-//    private let persistenceHelper = PersistenceHelper<MODELNAME>(fileName: "mySavedBooks.plist")
+    
+    static let manager = FavoriteBookPersistenceHelper()
+
+    func save(newBook: SearchResult) throws {
+        try persistenceHelper.save(newElement: newBook)
+    }
+
+    func getBooks() throws -> [SearchResult] {
+        return try persistenceHelper.getObjects()
+    }
+
+    private let persistenceHelper = PersistenceHelper<SearchResult>(fileName: "mySavedBooks.plist")
     
     private init() {}
 }
