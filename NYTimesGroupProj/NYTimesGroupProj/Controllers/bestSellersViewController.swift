@@ -49,7 +49,7 @@ class bestSellersViewController: UIViewController {
     var selectedCategory = String() {
         didSet {
             loadBooksInSelectedCategory()
-//            print(selectedCategory)
+
         }
     }
     
@@ -88,15 +88,6 @@ class bestSellersViewController: UIViewController {
         ])
     }
     
-    private func setTitleLabelConstraints() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
     private func setPickerConstraints() {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -109,7 +100,6 @@ class bestSellersViewController: UIViewController {
     
     private func setConstraints(){
         setCollectionViewConstraints()
-        setTitleLabelConstraints()
         setPickerConstraints()
     }
     
@@ -137,7 +127,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
         
         let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
         
-        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.bookDetails[0].primaryIsbn13) { (result) in
+        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[index].isbn13) { (result) in
             switch result {
             case .success(let googleBookData):
                 print(googleBookData)
@@ -162,10 +152,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
     }
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3a192ffa925fd469670fca633c7623ea8d9c1757
+
 extension bestSellersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -178,15 +165,6 @@ extension bestSellersViewController: UICollectionViewDelegate {
             .pushViewController(detailVC, animated: true)
     }
 }
-<<<<<<< HEAD
-=======
-extension bestSellersViewController: UICollectionViewDelegate {}
->>>>>>> f6f7aad764cb1a16ae1f8d395fe5d50e806fb649
-=======
-
-extension bestSellersViewController: UICollectionViewDelegate {}
-
->>>>>>> 3a192ffa925fd469670fca633c7623ea8d9c1757
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -107,10 +107,10 @@
 			children = (
 				746A7DE9235A3D6F0029FBE9 /* AppDelegate.swift */,
 				746A7DEB235A3D6F0029FBE9 /* SceneDelegate.swift */,
+				97089702235A612D003E2B10 /* Persistence */,
 				D808CAEA235A664000EB2093 /* Model */,
 				970896FF235A60DF003E2B10 /* Views */,
 				746A7E0B235A3EAB0029FBE9 /* Controllers */,
-				97089702235A612D003E2B10 /* Persistence */,
 				970896F5235A5D9F003E2B10 /* Network */,
 				746A7DF2235A3D760029FBE9 /* Assets.xcassets */,
 				746A7DF4235A3D760029FBE9 /* LaunchScreen.storyboard */,
