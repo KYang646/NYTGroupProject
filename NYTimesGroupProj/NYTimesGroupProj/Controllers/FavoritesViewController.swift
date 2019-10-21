@@ -9,6 +9,7 @@
 import UIKit
 
 class FavoritesViewController: UIViewController {
+    
     //MARK: -- Properties
     lazy var favsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
