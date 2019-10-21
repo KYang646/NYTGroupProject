@@ -15,7 +15,7 @@ class bestSellersViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        collectionView.backgroundColor = #colorLiteral(red: 0.438677609, green: 0.432184577, blue: 0.5881646276, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.dataSource = self
@@ -130,7 +130,7 @@ class bestSellersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9763752818, green: 0.9765191674, blue: 0.9763557315, alpha: 1)
         setConstraints()
         loadCategoriesData()
         
@@ -148,9 +148,9 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
         
-        let index = specificBook.isbns.indexExists(1) == true ? 1 : 0
+        let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
         
-        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[index].isbn10) { (result) in
+        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.bookDetails[0].primaryIsbn13) { (result) in
             switch result {
             case .success(let googleBookData):
                 print(googleBookData)
@@ -161,10 +161,9 @@ extension bestSellersViewController: UICollectionViewDataSource {
                             bookCell.bookImage.image = imageFromAPI
                         }
                         
-                        
                     case .failure(let error):
                         print(error)
-                        
+                        bookCell.bookImage.image = #imageLiteral(resourceName: "noImage")
                     }
                 }
                 
@@ -174,10 +173,6 @@ extension bestSellersViewController: UICollectionViewDataSource {
         }
         return bookCell
     }
-}
-
-extension bestSellersViewController: UICollectionViewDelegate {
-    
 }
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
@@ -197,7 +192,6 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
         return categories[row].displayName
     }
     
@@ -207,8 +201,8 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
 }
 
-extension Array {
-  func indexExists(_ index: Int) -> Bool {
-    return self.indices.contains(index)
-  }
-}
+//extension Array {
+//  func indexExists(_ index: Int) -> Bool {
+//    return self.indices.contains(index)
+//  }
+//}
