@@ -12,7 +12,10 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
   
   lazy var optionsButton: UIButton = {
     let button = UIButton()
-    //        self.addSubview(button)
+    button.setTitle("...", for: .normal)
+    button.setTitleColor(.black, for: .normal)
+    button.transform = CGAffineTransform(scaleX: 3, y: 3)
+    self.addSubview(button)
     return button
   }()
   
@@ -63,6 +66,7 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     setBookImageConstraints()
     setWeeksLabelConstraints()
     setSummaryTextViewConstraints()
+    setButtonConstraints()
   }
   
   private func setBookImageConstraints(){
@@ -95,4 +99,16 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
       summaryTextView.heightAnchor.constraint(equalToConstant: 90),
     ])
 }
+    private func setButtonConstraints(){
+        optionsButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            optionsButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 120),
+            optionsButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -140),
+            optionsButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+         //   optionsButton.topAnchor.constraint(equalTo: view.topAnchor)
+            optionsButton.widthAnchor.constraint(equalToConstant: 50),
+            optionsButton.heightAnchor.constraint(equalToConstant: 10),
+        
+        ])
+    }
 }
