@@ -11,6 +11,7 @@ import UIKit
 class bestSellersViewController: UIViewController {
     //MARK: -- Properties
     
+    
     lazy var booksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -50,17 +51,20 @@ class bestSellersViewController: UIViewController {
         didSet {
             loadBooksInSelectedCategory()
 //            print(selectedCategory)
+
         }
     }
     
     private func loadCategoriesData() {
         NYTimesCategoriesAPIClient.shared.getCategories { (result) in
-            switch result {
-            case .success(let categoryData):
-                self.categories = categoryData
-                
-            case .failure(let error):
-                print(error)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let categoryData):
+                    self.categories = categoryData
+                    //self.loadUserDefaults()
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }
@@ -103,16 +107,32 @@ class bestSellersViewController: UIViewController {
         setPickerConstraints()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadUserDefaults()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9763752818, green: 0.9765191674, blue: 0.9763557315, alpha: 1)
         setConstraints()
         loadCategoriesData()
-        
+        //loadUserDefaults()
     }
+    
+    private func loadUserDefaults(){
+        if let rowInteger = UserDefaults.standard.object(forKey: "rowNumber") as? Int, let category = UserDefaults.standard.object(forKey: "categoryName") as? String{
+            selectedCategory = category
+            genrePicker.selectRow(rowInteger, inComponent: 0, animated: true)
+            loadBooksInSelectedCategory()
+        } else {
+            selectedCategory = categories[0].listNameEncoded
+        }
+        //\loadBooksInSelectedCategory()
+    }
+    
 }
+
 
 //MARK: -- Extensions
 extension bestSellersViewController: UICollectionViewDataSource {
@@ -124,6 +144,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
+
         
         let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
         
@@ -141,12 +162,35 @@ extension bestSellersViewController: UICollectionViewDataSource {
                     case .failure(let error):
                         print(error)
                         bookCell.bookImage.image = #imageLiteral(resourceName: "noImage")
+
+        if let bookExist = specificBook.bookDetails.first {
+        //        let index = specificBook.bookDetails[0].primaryIsbn10
+        //        let index = specificBook.isbns.indexExists(1) == true ? 1 : 0
+            
+            GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: bookExist.primaryIsbn13 ) { (result) in
+                switch result {
+                case .success(let googleBookData):
+                    print(googleBookData)
+                    ImageHelper.shared.getImage(urlStr: googleBookData.items[0].volumeInfo.imageLinks.thumbnail) { (result) in
+                        switch result {
+                        case .success(let imageFromAPI):
+                            DispatchQueue.main.async {
+                                bookCell.bookImage.image = imageFromAPI
+                            }
+                            
+                            
+                        case .failure(let error):
+                            print(error)
+                            
+                        }
+
                     }
+                    
+                case .failure(let error):
+                    print(error)
                 }
-                
-            case .failure(let error):
-                print(error)
             }
+            
         }
         return bookCell
     }
@@ -172,7 +216,7 @@ extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: -- PickerView DataSource/Delegate
-extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -189,10 +233,20 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCategory = categories[row].listNameEncoded
     }
+    
+    
 }
+
 
 //extension Array {
 //  func indexExists(_ index: Int) -> Bool {
 //    return self.indices.contains(index)
 //  }
 //}
+
+extension Array {
+    func indexExists(_ index: Int) -> Bool {
+        return self.indices.contains(index)
+    }
+}
+
