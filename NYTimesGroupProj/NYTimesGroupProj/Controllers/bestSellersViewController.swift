@@ -132,6 +132,16 @@ class bestSellersViewController: UIViewController {
 //MARK: -- Extensions
 extension bestSellersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if books.count == 0 {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: booksCollectionView.bounds.size.width, height: booksCollectionView.bounds.size.height))
+            noDataLabel.text = "Please select a category"
+            noDataLabel.textColor = #colorLiteral(red: 0.8060024381, green: 0.801212132, blue: 0.8096852899, alpha: 0.7991491866)
+            noDataLabel.font = UIFont.systemFont(ofSize: 20)
+            noDataLabel.textAlignment = .center
+            booksCollectionView.backgroundView = noDataLabel
+        } else {
+            booksCollectionView.backgroundView = nil
+        }
         return books.count
     }
     

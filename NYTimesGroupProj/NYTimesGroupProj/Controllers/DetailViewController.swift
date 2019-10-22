@@ -13,7 +13,7 @@ class DetailViewController: UIViewController {
     lazy var bookImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = UIColor.red
+        imageView.backgroundColor = .clear
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         view.addSubview(imageView)
@@ -21,12 +21,36 @@ class DetailViewController: UIViewController {
         return imageView
     }()
     
+    lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        return label
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        label.font = UIFont.boldSystemFont(ofSize: 50)
+      
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        return label
+    }()
+    
     lazy var bookTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .clear
         textView.textColor = . white
-        textView.font = UIFont.systemFont(ofSize: 21)
+        textView.font = UIFont.systemFont(ofSize: 19)
         textView.isEditable = false
         textView.textAlignment = .center
         view.addSubview(textView)
@@ -118,11 +142,20 @@ class DetailViewController: UIViewController {
         ])
     }
     
+    private func setLabelConstraints() {
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: bookImage.bottomAnchor),
+            titleLabel.widthAnchor.constraint(equalToConstant: 100),
+            titleLabel.heightAnchor.constraint(equalToConstant: 70)
+            
+        ])
+    }
     
     private func setTextViewConstraints() {
         NSLayoutConstraint.activate([
             bookTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bookTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 340),
+            bookTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 360),
             bookTextView.heightAnchor.constraint(equalToConstant: 130),
             bookTextView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
@@ -132,7 +165,7 @@ class DetailViewController: UIViewController {
     private func setBookImageConstraints() {
         NSLayoutConstraint.activate([
             bookImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bookImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+            bookImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10),
             bookImage.heightAnchor.constraint(equalToConstant: 450),
             bookImage.widthAnchor.constraint(equalToConstant: 300)
         ])
@@ -141,28 +174,33 @@ class DetailViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = #colorLiteral(red: 0.2914385796, green: 0.1974040866, blue: 0.4500601888, alpha: 1)
         bookTextView.text = currentBook.description
+        titleLabel.text = currentBook.title
         
         ImageHelper.shared.getImage(urlStr: currentBook.book_image) { (result) in
             switch result {
             case .failure(let error):
                 print(error)
             case .success(let imageFromOnline):
-                UIView.transition(with: self.bookImage, duration: 1.1, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    UIView.transition(with: self.bookImage, duration: 1.3, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
                         self.bookImage.image = imageFromOnline
-                    }
-                    
-                }, completion: nil)
+                    }, completion: nil)
+                }
+                
             }
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    private func setConstraints() {
         setBookImageConstraints()
         setTextViewConstraints()
         setButtonConstraints()
+        setLabelConstraints()
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setConstraints()
         configureUI()
         
     }

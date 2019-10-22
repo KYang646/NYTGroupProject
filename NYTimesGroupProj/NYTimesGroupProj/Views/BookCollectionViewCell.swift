@@ -140,7 +140,6 @@ class BookCollectionViewCell: UICollectionViewCell {
     private func setConstraints(){
         setConstraintsForBookImage()
         setSummaryTextViewConstraints()
-        //        setWeeksLabelConstraints()
         setTitleLabelConstraints()
         setAuthorLabelConstraints()
 //        setOuterViewConstraints()

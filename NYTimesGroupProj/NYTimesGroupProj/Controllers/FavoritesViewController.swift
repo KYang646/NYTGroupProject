@@ -27,7 +27,7 @@ class FavoritesViewController: UIViewController {
         return collectionView
     }()
     
-    var books = [NYTimeBook]() {
+    var favoriteBooks = [NYTimeBook]() {
         didSet {
             favsCollectionView.reloadData()
         }
@@ -46,7 +46,7 @@ class FavoritesViewController: UIViewController {
     
     
     private func loadFavsData() {
-        try! books = FavoriteBookPersistenceHelper.manager.getBooks()
+        try! favoriteBooks = FavoriteBookPersistenceHelper.manager.getBooks()
     }
     
     private func setCollectionViewConstraints() {
@@ -62,12 +62,14 @@ class FavoritesViewController: UIViewController {
 //MARK: -- Extensions
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return books.count
+        return favoriteBooks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let favsCell = favsCollectionView.dequeueReusableCell(withReuseIdentifier: "favoritesCell", for: indexPath) as! FavoritesCollectionViewCell
+        let specificFavorite = favoriteBooks[indexPath.row]
         
+        favsCell.configureCell(from: specificFavorite)
         
         return favsCell
     }

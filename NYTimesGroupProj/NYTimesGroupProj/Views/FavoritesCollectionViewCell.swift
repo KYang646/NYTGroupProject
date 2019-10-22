@@ -52,17 +52,6 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     return label
   }()
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    self.layer.cornerRadius = 10
-    backgroundColor = .white
-    setConstraints()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
   private func setConstraints() {
     setBookImageConstraints()
     setSummaryTextViewConstraints()
@@ -109,4 +98,37 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
       bookTitleLabel.heightAnchor.constraint(equalToConstant: 60)
     ])
   }
+    
+    public func configureCell(from book: NYTimeBook) {
+        self.layer.cornerRadius = 10
+        backgroundColor =  #colorLiteral(red: 0.2914385796, green: 0.1974040866, blue: 0.4500601888, alpha: 1)
+        bookTitleLabel.text = book.title
+//        authorLabel.text = book.author
+        
+        summaryTextView.text = book.description
+        //        weeksLabel.text = "\(book.weeks_on_list) weeks on best seller.."
+        
+        ImageHelper.shared.getImage(urlStr: book.book_image) { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let imageFromOnline):
+                DispatchQueue.main.async {
+                    self.bookImage.image = imageFromOnline
+                }
+            }
+        }
+    }
+    
+    override init(frame: CGRect) {
+      super.init(frame: frame)
+      self.layer.cornerRadius = 10
+      backgroundColor = .white
+      setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
+    
 }
