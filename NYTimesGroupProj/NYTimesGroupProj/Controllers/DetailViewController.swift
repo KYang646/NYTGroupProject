@@ -36,9 +36,8 @@ class DetailViewController: UIViewController {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 50)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
       
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
@@ -146,7 +145,7 @@ class DetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: bookImage.bottomAnchor),
-            titleLabel.widthAnchor.constraint(equalToConstant: 100),
+            titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: 70)
             
         ])
@@ -182,7 +181,7 @@ class DetailViewController: UIViewController {
                 print(error)
             case .success(let imageFromOnline):
                 DispatchQueue.main.async {
-                    UIView.transition(with: self.bookImage, duration: 1.3, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
+                    UIView.transition(with: self.bookImage, duration: 1.3, options: [.transitionCurlUp, .curveEaseInOut], animations: {
                         self.bookImage.image = imageFromOnline
                     }, completion: nil)
                 }
@@ -198,6 +197,11 @@ class DetailViewController: UIViewController {
         setLabelConstraints()
         
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setConstraints()

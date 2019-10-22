@@ -14,7 +14,6 @@ final class NYTimesBookAPIClient {
     static let shared = NYTimesBookAPIClient()
     
     func getBooks(categoryName: String, completionHandler: @escaping (Result<[NYTimeBook], AppError>) -> Void) {
-//         let urlStr = "https://api.nytimes.com/svc/books/v3/lists.json?api-key=\(apiKey)&list=\(categoryName)"
    let urlStr = "https://api.nytimes.com/svc/books/v3/lists/current/\(categoryName).json?api-key=\(apiKey)"
         
          guard let url = URL(string: urlStr) else {
