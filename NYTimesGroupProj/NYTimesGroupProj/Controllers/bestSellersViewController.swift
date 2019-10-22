@@ -105,6 +105,10 @@ class bestSellersViewController: UIViewController {
         setPickerConstraints()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -135,30 +139,6 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
-        
-//        let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
-        
-//        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.isbns[index].isbn10) { (result) in
-//            switch result {
-//            case .success(let googleBookData):
-//                print(googleBookData)
-//                ImageHelper.shared.getImage(urlStr: googleBookData.items[0].volumeInfo.imageLinks.thumbnail) { (result) in
-//                    switch result {
-//                    case .success(let imageFromAPI):
-//                        DispatchQueue.main.async {
-//                            bookCell.bookImage.image = imageFromAPI
-//                        }
-//
-//                    case .failure(let error):
-//                        print(error)
-//                        bookCell.bookImage.image = #imageLiteral(resourceName: "noImage")
-//                    }
-//                }
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
         return bookCell
     }
 }
@@ -171,9 +151,9 @@ extension bestSellersViewController: UICollectionViewDelegate {
         let currentBook = books[indexPath.row]
         detailVC.currentBook = currentBook
     
-        
-        self.navigationController?
-            .pushViewController(detailVC, animated: true)
+        detailVC.modalPresentationStyle = .fullScreen
+        detailVC.modalTransitionStyle = .crossDissolve
+        present(detailVC, animated: true, completion: nil)
     }
 }
 

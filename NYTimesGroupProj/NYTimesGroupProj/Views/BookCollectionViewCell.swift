@@ -18,8 +18,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         outerView.layer.shadowRadius = 7
         outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: 10).cgPath
         outerView.translatesAutoresizingMaskIntoConstraints = false
-        //          self.addSubview(outerView)
-        //        outerView.addSubview(bookImage)
+    
         return outerView
     }()
     
@@ -27,10 +26,10 @@ class BookCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.image = #imageLiteral(resourceName: "noImage")
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        //        self.addSubview(imageView)
+
         return imageView
         
     }()
@@ -75,7 +74,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +123,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     private func setTitleLabelConstraints() {
         NSLayoutConstraint.activate([
             bookTitleLabel.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor),
-            bookTitleLabel.topAnchor.constraint(equalTo: bookImage.topAnchor, constant: -88),
+            bookTitleLabel.topAnchor.constraint(equalTo: bookImage.topAnchor, constant: -95),
             bookTitleLabel.widthAnchor.constraint(equalToConstant: 340),
             bookTitleLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
