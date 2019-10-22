@@ -27,7 +27,7 @@ class FavoritesViewController: UIViewController {
         return collectionView
     }()
     
-    var books = [SearchResult]() {
+    var books = [NYTimeBook]() {
         didSet {
             favsCollectionView.reloadData()
         }
