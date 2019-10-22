@@ -16,27 +16,14 @@ class bestSellersViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        collectionView.backgroundColor = #colorLiteral(red: 0.438677609, green: 0.432184577, blue: 0.5881646276, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "bookCell")
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         return collectionView
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "NYT Bestsellers"
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        
-        return label
     }()
     
     lazy var genrePicker: UIPickerView = {
@@ -63,7 +50,8 @@ class bestSellersViewController: UIViewController {
     var selectedCategory = String() {
         didSet {
             loadBooksInSelectedCategory()
-            //print(selectedCategory)
+//            print(selectedCategory)
+
         }
     }
     
@@ -104,15 +92,6 @@ class bestSellersViewController: UIViewController {
         ])
     }
     
-    private func setTitleLabelConstraints() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
     private func setPickerConstraints() {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -125,7 +104,6 @@ class bestSellersViewController: UIViewController {
     
     private func setConstraints(){
         setCollectionViewConstraints()
-        setTitleLabelConstraints()
         setPickerConstraints()
     }
     
@@ -136,7 +114,7 @@ class bestSellersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9763752818, green: 0.9765191674, blue: 0.9763557315, alpha: 1)
         setConstraints()
         loadCategoriesData()
         //loadUserDefaults()
@@ -166,6 +144,25 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
+
+        
+        let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
+        
+        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.bookDetails[0].primaryIsbn13) { (result) in
+            switch result {
+            case .success(let googleBookData):
+                print(googleBookData)
+                ImageHelper.shared.getImage(urlStr: googleBookData.items[0].volumeInfo.imageLinks.thumbnail) { (result) in
+                    switch result {
+                    case .success(let imageFromAPI):
+                        DispatchQueue.main.async {
+                            bookCell.bookImage.image = imageFromAPI
+                        }
+                        
+                    case .failure(let error):
+                        print(error)
+                        bookCell.bookImage.image = #imageLiteral(resourceName: "noImage")
+
         if let bookExist = specificBook.bookDetails.first {
         //        let index = specificBook.bookDetails[0].primaryIsbn10
         //        let index = specificBook.isbns.indexExists(1) == true ? 1 : 0
@@ -186,6 +183,7 @@ extension bestSellersViewController: UICollectionViewDataSource {
                             print(error)
                             
                         }
+
                     }
                     
                 case .failure(let error):
@@ -199,7 +197,16 @@ extension bestSellersViewController: UICollectionViewDataSource {
 }
 
 extension bestSellersViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let detailVC = DetailViewController()
+        let currentBook = books[indexPath.row]
+        detailVC.currentBook = currentBook
     
+        
+        self.navigationController?
+            .pushViewController(detailVC, animated: true)
+    }
 }
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
@@ -219,7 +226,6 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
         return categories[row].displayName
     }
     
@@ -231,8 +237,16 @@ extension bestSellersViewController: UIPickerViewDataSource, UIPickerViewDelegat
     
 }
 
+
+//extension Array {
+//  func indexExists(_ index: Int) -> Bool {
+//    return self.indices.contains(index)
+//  }
+//}
+
 extension Array {
     func indexExists(_ index: Int) -> Bool {
         return self.indices.contains(index)
     }
 }
+

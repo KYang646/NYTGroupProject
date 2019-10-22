@@ -26,6 +26,7 @@
 		973D4EF7235AA02D0008E54A /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EF6235AA02D0008E54A /* ImageHelper.swift */; };
 		D808CAE9235A597D00EB2093 /* NYTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAE8235A597D00EB2093 /* NYTAPI.swift */; };
 		D808CAEC235A695C00EB2093 /* GoogleBooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAEB235A695C00EB2093 /* GoogleBooksAPI.swift */; };
+		D808CAEE235DFD2200EB2093 /* FavoritesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAED235DFD2200EB2093 /* FavoritesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		973D4EF6235AA02D0008E54A /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		D808CAE8235A597D00EB2093 /* NYTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTAPI.swift; sourceTree = "<group>"; };
 		D808CAEB235A695C00EB2093 /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPI.swift; sourceTree = "<group>"; };
+		D808CAED235DFD2200EB2093 /* FavoritesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,10 +107,10 @@
 			children = (
 				746A7DE9235A3D6F0029FBE9 /* AppDelegate.swift */,
 				746A7DEB235A3D6F0029FBE9 /* SceneDelegate.swift */,
+				97089702235A612D003E2B10 /* Persistence */,
 				D808CAEA235A664000EB2093 /* Model */,
 				970896FF235A60DF003E2B10 /* Views */,
 				746A7E0B235A3EAB0029FBE9 /* Controllers */,
-				97089702235A612D003E2B10 /* Persistence */,
 				970896F5235A5D9F003E2B10 /* Network */,
 				746A7DF2235A3D760029FBE9 /* Assets.xcassets */,
 				746A7DF4235A3D760029FBE9 /* LaunchScreen.storyboard */,
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				97089700235A6103003E2B10 /* BookCollectionViewCell.swift */,
+				D808CAED235DFD2200EB2093 /* FavoritesCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				973D4EF1235A68C60008E54A /* DetailViewController.swift in Sources */,
 				746A7DEA235A3D6F0029FBE9 /* AppDelegate.swift in Sources */,
 				D808CAEC235A695C00EB2093 /* GoogleBooksAPI.swift in Sources */,
+				D808CAEE235DFD2200EB2093 /* FavoritesCollectionViewCell.swift in Sources */,
 				746A7DEC235A3D6F0029FBE9 /* SceneDelegate.swift in Sources */,
 				746A7E0F235A3EDB0029FBE9 /* FavoritesViewController.swift in Sources */,
 				973D4EF5235A9DB90008E54A /* GoogleBooksAPIClient.swift in Sources */,
