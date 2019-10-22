@@ -15,7 +15,7 @@ class bestSellersViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = #colorLiteral(red: 0.438677609, green: 0.432184577, blue: 0.5881646276, alpha: 1)
+        collectionView.backgroundColor = #colorLiteral(red: 0.2914385796, green: 0.1974040866, blue: 0.4500601888, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.dataSource = self
@@ -34,7 +34,9 @@ class bestSellersViewController: UIViewController {
         return picker
     }()
     
-    var books = [SearchResult]() {
+
+    
+    var books = [NYTimeBook]() {
         didSet {
             booksCollectionView.reloadData()
         }
@@ -49,7 +51,7 @@ class bestSellersViewController: UIViewController {
     var selectedCategory = String() {
         didSet {
             loadBooksInSelectedCategory()
-//            print(selectedCategory)
+
         }
     }
     
@@ -66,7 +68,7 @@ class bestSellersViewController: UIViewController {
     }
     
     private func loadBooksInSelectedCategory() {
-        NYTimesBooksAPIClient.shared.getCategories(categoryName: selectedCategory) { (result) in
+        NYTimesBookAPIClient.shared.getBooks(categoryName: selectedCategory) { (result) in
             switch result {
             case .success(let booksFromOnline):
                 self.books = booksFromOnline
@@ -81,10 +83,10 @@ class bestSellersViewController: UIViewController {
     //MARK: -- Constraints
     private func setCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            booksCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            booksCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             booksCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             booksCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            booksCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            booksCollectionView.heightAnchor.constraint(equalToConstant: 635)
         ])
     }
     
@@ -92,7 +94,7 @@ class bestSellersViewController: UIViewController {
         NSLayoutConstraint.activate([
             genrePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             genrePicker.widthAnchor.constraint(equalTo: view.widthAnchor),
-            genrePicker.heightAnchor.constraint(equalToConstant: 450),
+            genrePicker.heightAnchor.constraint(equalToConstant: 305),
             genrePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             
         ])
@@ -103,6 +105,19 @@ class bestSellersViewController: UIViewController {
         setPickerConstraints()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+   override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     
     override func viewDidLoad() {
@@ -117,6 +132,16 @@ class bestSellersViewController: UIViewController {
 //MARK: -- Extensions
 extension bestSellersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if books.count == 0 {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: booksCollectionView.bounds.size.width, height: booksCollectionView.bounds.size.height))
+            noDataLabel.text = "Please select a category"
+            noDataLabel.textColor = #colorLiteral(red: 0.8060024381, green: 0.801212132, blue: 0.8096852899, alpha: 0.7991491866)
+            noDataLabel.font = UIFont.systemFont(ofSize: 20)
+            noDataLabel.textAlignment = .center
+            booksCollectionView.backgroundView = noDataLabel
+        } else {
+            booksCollectionView.backgroundView = nil
+        }
         return books.count
     }
     
@@ -124,33 +149,10 @@ extension bestSellersViewController: UICollectionViewDataSource {
         let bookCell = booksCollectionView.dequeueReusableCell(withReuseIdentifier: "bookCell", for: indexPath) as! BookCollectionViewCell
         let specificBook = books[indexPath.row]
         bookCell.configureCell(from: specificBook)
-        
-        let index = specificBook.isbns.indices.contains(1) == true ? 1 : 0
-        
-        GoogleBooksAPIClient.shared.getGoogleBooks(isbn10: specificBook.bookDetails[0].primaryIsbn13) { (result) in
-            switch result {
-            case .success(let googleBookData):
-                print(googleBookData)
-                ImageHelper.shared.getImage(urlStr: googleBookData.items[0].volumeInfo.imageLinks.thumbnail) { (result) in
-                    switch result {
-                    case .success(let imageFromAPI):
-                        DispatchQueue.main.async {
-                            bookCell.bookImage.image = imageFromAPI
-                        }
-                        
-                    case .failure(let error):
-                        print(error)
-                        bookCell.bookImage.image = #imageLiteral(resourceName: "noImage")
-                    }
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
         return bookCell
     }
 }
+
 
 extension bestSellersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -159,15 +161,15 @@ extension bestSellersViewController: UICollectionViewDelegate {
         let currentBook = books[indexPath.row]
         detailVC.currentBook = currentBook
     
-        
-        self.navigationController?
-            .pushViewController(detailVC, animated: true)
+        detailVC.modalPresentationStyle = .fullScreen
+        detailVC.modalTransitionStyle = .crossDissolve
+        present(detailVC, animated: true, completion: nil)
     }
 }
 
 extension bestSellersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 350, height: 350)
+        return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
     }
 }
 

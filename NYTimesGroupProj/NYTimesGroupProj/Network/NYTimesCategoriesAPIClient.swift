@@ -11,7 +11,7 @@ import Foundation
 final class NYTimesCategoriesAPIClient {
     private init() {}
     
-    private var apiKey = "D8XGY4XP3kgNv2V9li2f192mdAOKesVe"
+    private var apiKey = "Ge7O8fEFdUuSujd9AldzIIZQjV0cx1GI"
     static let shared = NYTimesCategoriesAPIClient()
     
     func getCategories(completionHandler: @escaping (Result<[ListNameResult], AppError>) -> Void) {

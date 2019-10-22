@@ -26,43 +26,23 @@ struct ListNameResult: Codable {
     }
 }
 
-//MARK: -- New York Times
-struct NYTime: Codable {
-    let results: [SearchResult]
-    
+struct NYTimeBookWrapper: Codable {
+    let results: Results
 }
-// MARK: -- SearchResults
-struct SearchResult: Codable {
-    let displayName: String
-    let weeksOnList: Int
-    let amazonProductURL: String
-    let bookDetails: [BookDetail]
-    let isbns: [ISBN]
-    private enum CodingKeys: String, CodingKey {
-        case displayName = "display_name"
-        case weeksOnList = "weeks_on_list"
-        case amazonProductURL = "amazon_product_url"
-        case bookDetails = "book_details"
-        case isbns
-    }
+
+struct Results: Codable {
+    let books: [NYTimeBook]
 }
-// MARK: - BookDetail
-struct ISBN: Codable {
-    let isbn10: String
-    let isbn13: String
-    
-}
-struct BookDetail: Codable {
+
+struct NYTimeBook: Codable {
+    let weeks_on_list: Int
+//    let publisher: Publisher
+    let description: String
     let title: String
-    let bookDetailDescription: String
     let author: String
-    let primaryIsbn13, primaryIsbn10: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case title
-        case bookDetailDescription = "description"
-        case author
-        case primaryIsbn13 = "primary_isbn13"
-        case primaryIsbn10 = "primary_isbn10"
-    }
+    let book_image: String
+    let amazon_product_url: String
+
 }
+
+

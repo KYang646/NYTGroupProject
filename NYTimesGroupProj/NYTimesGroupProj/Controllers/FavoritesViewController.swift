@@ -10,6 +10,7 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     
+    
     //MARK: -- Properties
     lazy var favsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,7 +27,7 @@ class FavoritesViewController: UIViewController {
         return collectionView
     }()
     
-    var books = [SearchResult]() {
+    var favoriteBooks = [NYTimeBook]() {
         didSet {
             favsCollectionView.reloadData()
         }
@@ -36,20 +37,24 @@ class FavoritesViewController: UIViewController {
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9799128175, blue: 0.8817918897, alpha: 1)
         setCollectionViewConstraints()
     }
     
+    
     private func loadFavsData() {
-        try! books = FavoriteBookPersistenceHelper.manager.getBooks()
+        try! favoriteBooks = FavoriteBookPersistenceHelper.manager.getBooks()
     }
     
     private func setCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-          favsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-          favsCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),favsCollectionView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),favsCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            favsCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            favsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            favsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            favsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
     }
 }
@@ -57,21 +62,26 @@ class FavoritesViewController: UIViewController {
 //MARK: -- Extensions
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return books.count
+        return favoriteBooks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let favsCell = favsCollectionView.dequeueReusableCell(withReuseIdentifier: "favoritesCell", for: indexPath) as! FavoritesCollectionViewCell
+        let specificFavorite = favoriteBooks[indexPath.row]
         
-        //TODO: - Load data for favorites
+        favsCell.configureCell(from: specificFavorite)
+        
         return favsCell
     }
 }
 
-extension FavoritesViewController: UICollectionViewDelegate {}
+
 
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 350, height: 400)
+        return CGSize(width: 350, height: 350)
     }
 }
+
+
+

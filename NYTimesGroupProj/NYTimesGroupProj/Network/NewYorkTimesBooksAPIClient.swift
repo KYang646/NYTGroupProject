@@ -1,21 +1,20 @@
 //
-//  NYTimesBooksAPIClient.swift
+//  NewYorkTimesBooksAPIClient.swift
 //  NYTimesGroupProj
 //
-//  Created by Anthony Gonzalez on 10/18/19.
+//  Created by Anthony Gonzalez on 10/21/19.
 //  Copyright © 2019 Kimball Yang. All rights reserved.
 //
 
 import Foundation
 
-final class NYTimesBooksAPIClient {
+final class NYTimesBookAPIClient {
     private init() {}
+    private var apiKey = "Ge7O8fEFdUuSujd9AldzIIZQjV0cx1GI"
+    static let shared = NYTimesBookAPIClient()
     
-    private var apiKey = "D8XGY4XP3kgNv2V9li2f192mdAOKesVe"
-    static let shared = NYTimesBooksAPIClient()
-    
-    func getCategories(categoryName: String, completionHandler: @escaping (Result<[SearchResult], AppError>) -> Void) {
-         let urlStr = "https://api.nytimes.com/svc/books/v3/lists.json?api-key=\(apiKey)&list=\(categoryName)"
+    func getBooks(categoryName: String, completionHandler: @escaping (Result<[NYTimeBook], AppError>) -> Void) {
+   let urlStr = "https://api.nytimes.com/svc/books/v3/lists/current/\(categoryName).json?api-key=\(apiKey)"
         
          guard let url = URL(string: urlStr) else {
              completionHandler(.failure(.badURL))
@@ -28,8 +27,8 @@ final class NYTimesBooksAPIClient {
                  completionHandler(.failure(error))
              case .success(let data):
                  do {
-                     let NYTimeWrapper = try JSONDecoder().decode(NYTime.self, from: data)
-                    completionHandler(.success(NYTimeWrapper.results))
+                     let NYTimeWrapper = try JSONDecoder().decode(NYTimeBookWrapper.self, from: data)
+                    completionHandler(.success(NYTimeWrapper.results.books))
                  } catch {
                      completionHandler(.failure(.couldNotParseJSON(rawError: error)))
                  }

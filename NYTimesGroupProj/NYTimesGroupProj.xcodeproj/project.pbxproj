@@ -21,11 +21,9 @@
 		97089706235A615D003E2B10 /* FavoriteBooksPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97089705235A615D003E2B10 /* FavoriteBooksPersistenceHelper.swift */; };
 		97089708235A6183003E2B10 /* NYTimesCategoriesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97089707235A6183003E2B10 /* NYTimesCategoriesAPIClient.swift */; };
 		973D4EF1235A68C60008E54A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EF0235A68C60008E54A /* DetailViewController.swift */; };
-		973D4EF3235A942F0008E54A /* NYTimesBooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EF2235A942F0008E54A /* NYTimesBooksAPIClient.swift */; };
-		973D4EF5235A9DB90008E54A /* GoogleBooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EF4235A9DB90008E54A /* GoogleBooksAPIClient.swift */; };
 		973D4EF7235AA02D0008E54A /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EF6235AA02D0008E54A /* ImageHelper.swift */; };
+		973D4EFB235E8CD60008E54A /* NewYorkTimesBooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D4EFA235E8CD60008E54A /* NewYorkTimesBooksAPIClient.swift */; };
 		D808CAE9235A597D00EB2093 /* NYTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAE8235A597D00EB2093 /* NYTAPI.swift */; };
-		D808CAEC235A695C00EB2093 /* GoogleBooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAEB235A695C00EB2093 /* GoogleBooksAPI.swift */; };
 		D808CAEE235DFD2200EB2093 /* FavoritesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808CAED235DFD2200EB2093 /* FavoritesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,11 +56,9 @@
 		97089705235A615D003E2B10 /* FavoriteBooksPersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBooksPersistenceHelper.swift; sourceTree = "<group>"; };
 		97089707235A6183003E2B10 /* NYTimesCategoriesAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesCategoriesAPIClient.swift; sourceTree = "<group>"; };
 		973D4EF0235A68C60008E54A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		973D4EF2235A942F0008E54A /* NYTimesBooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesBooksAPIClient.swift; sourceTree = "<group>"; };
-		973D4EF4235A9DB90008E54A /* GoogleBooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPIClient.swift; sourceTree = "<group>"; };
 		973D4EF6235AA02D0008E54A /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		973D4EFA235E8CD60008E54A /* NewYorkTimesBooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewYorkTimesBooksAPIClient.swift; sourceTree = "<group>"; };
 		D808CAE8235A597D00EB2093 /* NYTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTAPI.swift; sourceTree = "<group>"; };
-		D808CAEB235A695C00EB2093 /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPI.swift; sourceTree = "<group>"; };
 		D808CAED235DFD2200EB2093 /* FavoritesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,8 +140,7 @@
 			children = (
 				970896F6235A5DCC003E2B10 /* NetworkHelper.swift */,
 				97089707235A6183003E2B10 /* NYTimesCategoriesAPIClient.swift */,
-				973D4EF2235A942F0008E54A /* NYTimesBooksAPIClient.swift */,
-				973D4EF4235A9DB90008E54A /* GoogleBooksAPIClient.swift */,
+				973D4EFA235E8CD60008E54A /* NewYorkTimesBooksAPIClient.swift */,
 				973D4EF6235AA02D0008E54A /* ImageHelper.swift */,
 			);
 			path = Network;
@@ -173,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				D808CAE8235A597D00EB2093 /* NYTAPI.swift */,
-				D808CAEB235A695C00EB2093 /* GoogleBooksAPI.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,14 +277,12 @@
 				746A7DEE235A3D6F0029FBE9 /* bestSellersViewController.swift in Sources */,
 				973D4EF1235A68C60008E54A /* DetailViewController.swift in Sources */,
 				746A7DEA235A3D6F0029FBE9 /* AppDelegate.swift in Sources */,
-				D808CAEC235A695C00EB2093 /* GoogleBooksAPI.swift in Sources */,
 				D808CAEE235DFD2200EB2093 /* FavoritesCollectionViewCell.swift in Sources */,
 				746A7DEC235A3D6F0029FBE9 /* SceneDelegate.swift in Sources */,
 				746A7E0F235A3EDB0029FBE9 /* FavoritesViewController.swift in Sources */,
-				973D4EF5235A9DB90008E54A /* GoogleBooksAPIClient.swift in Sources */,
+				973D4EFB235E8CD60008E54A /* NewYorkTimesBooksAPIClient.swift in Sources */,
 				97089706235A615D003E2B10 /* FavoriteBooksPersistenceHelper.swift in Sources */,
 				97089701235A6103003E2B10 /* BookCollectionViewCell.swift in Sources */,
-				973D4EF3235A942F0008E54A /* NYTimesBooksAPIClient.swift in Sources */,
 				970896F7235A5DCC003E2B10 /* NetworkHelper.swift in Sources */,
 				746A7E0D235A3ECB0029FBE9 /* SettingsViewController.swift in Sources */,
 				97089704235A6140003E2B10 /* PersistenceHelper.swift in Sources */,
