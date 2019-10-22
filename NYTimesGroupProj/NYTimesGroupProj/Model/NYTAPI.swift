@@ -37,22 +37,23 @@ struct SearchResult: Codable {
     let weeksOnList: Int
     let amazonProductURL: String
     let bookDetails: [BookDetail]
-    let isbns: [ISBN]
+    //let isbns: [ISBN]
+    
     private enum CodingKeys: String, CodingKey {
         case displayName = "display_name"
         case weeksOnList = "weeks_on_list"
         case amazonProductURL = "amazon_product_url"
         case bookDetails = "book_details"
-        case isbns
+        //case isbns
     }
 }
 // MARK: - BookDetail
 
-struct ISBN: Codable {
-    let isbn10: String
-    let isbn13: String
-    
-}
+//struct ISBN: Codable {
+//    let isbn10: String
+//    let isbn13: String
+//
+//}
 struct BookDetail: Codable {
     let title: String
     let bookDetailDescription: String

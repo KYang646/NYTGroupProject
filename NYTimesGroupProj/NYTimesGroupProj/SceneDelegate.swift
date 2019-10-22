@@ -31,6 +31,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         settingsVC.tabBarItem.title = "Settings"
         detailVC.tabBarItem.title = "Detail VC"
         
+//        bestSellersVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+//        favoritesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+//        settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
+        //detailVC.tabBarItem = UITabBarItem(title: <#T##String?#>, image: <#T##UIImage?#>, tag: <#T##Int#>)
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = tabBarVC

@@ -23,3 +23,6 @@ struct VolumeInfo: Codable {
 struct ImageLinks: Codable {
     let thumbnail: String
 }
+
+
+
