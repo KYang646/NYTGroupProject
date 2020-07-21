@@ -62,7 +62,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textColor = #colorLiteral(red: 0.7970843911, green: 1, blue: 0.5273691416, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -133,7 +133,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             authorLabel.centerXAnchor.constraint(equalTo: bookTitleLabel.centerXAnchor),
             authorLabel.topAnchor.constraint(equalTo: bookTitleLabel.topAnchor, constant: 30),
-            authorLabel.widthAnchor.constraint(equalToConstant: 240),
+            authorLabel.widthAnchor.constraint(equalToConstant: 260),
             authorLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
@@ -142,7 +142,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         setSummaryTextViewConstraints()
         setTitleLabelConstraints()
         setAuthorLabelConstraints()
-//        setOuterViewConstraints()
+
     }
     
     public func configureCell(from book: NYTimeBook) {

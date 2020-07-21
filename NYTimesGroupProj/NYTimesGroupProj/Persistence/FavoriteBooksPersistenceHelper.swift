@@ -12,15 +12,23 @@ struct FavoriteBookPersistenceHelper {
     
     static let manager = FavoriteBookPersistenceHelper()
 
-    func save(newBook: NYTimeBook) throws {
+    func save(newBook: FavoritedBook) throws {
         try persistenceHelper.save(newElement: newBook)
     }
 
-    func getBooks() throws -> [NYTimeBook] {
+    func getBooks() throws -> [FavoritedBook] {
         return try persistenceHelper.getObjects()
     }
+    
+    func deleteBook(specificID: Int) throws {
+        do {
+            let books = try getBooks()
+            let newBooks = books.filter { $0.id != specificID}
+            try persistenceHelper.replace(elements: newBooks)
+        }
+    }
 
-    private let persistenceHelper = PersistenceHelper<NYTimeBook>(fileName: "mySavedBooks.plist")
+    private let persistenceHelper = PersistenceHelper<FavoritedBook>(fileName: "mySavedBooks.plist")
     
     private init() {}
 }

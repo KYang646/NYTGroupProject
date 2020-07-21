@@ -10,14 +10,24 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    lazy var outerView: UIView = {
+        let outerView = UIView(frame: CGRect(x: 40, y: 203, width: 330, height: 475))
+        outerView.clipsToBounds = false
+        outerView.layer.shadowColor = UIColor.black.cgColor
+        outerView.layer.shadowOpacity = 0.7
+        outerView.layer.shadowOffset = CGSize.zero
+        outerView.layer.shadowRadius = 7
+        outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: 10).cgPath
+        outerView.translatesAutoresizingMaskIntoConstraints = false
+        return outerView
+    }()
+    
     lazy var bookImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
-        view.addSubview(imageView)
-        
         return imageView
     }()
     
@@ -25,7 +35,7 @@ class DetailViewController: UIViewController {
         let label = UILabel()
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 17)
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,12 +43,24 @@ class DetailViewController: UIViewController {
         return label
     }()
     
+    lazy var weeksLabel: UILabel = {
+          let label = UILabel()
+          label.textAlignment = .center
+          label.adjustsFontSizeToFitWidth = true
+          label.textColor = #colorLiteral(red: 0.8743566871, green: 0.8691595197, blue: 0.8783521056, alpha: 1)
+          label.font = UIFont.systemFont(ofSize: 17)
+          label.adjustsFontSizeToFitWidth = true
+          label.translatesAutoresizingMaskIntoConstraints = false
+          view.addSubview(label)
+          return label
+      }()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.7970843911, green: 1, blue: 0.5273691416, alpha: 1)
+        label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.boldSystemFont(ofSize: 20)
-      
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         return label
@@ -59,6 +81,16 @@ class DetailViewController: UIViewController {
     
     lazy var amazonButton: UIButton = {
         let button = UIButton()
+        var frame = button.frame
+        frame.size.width = 50
+        frame.size.height = 50
+        button.frame = frame
+        button.layer.cornerRadius = button.frame.width/2
+        
+        
+        button.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.layer.borderWidth = 1.0
+        button.contentMode = .center
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "amazon-icon"), for: .normal)
         button.addTarget(self, action: #selector(amazonButtonPressed), for: .touchUpInside)
@@ -95,13 +127,21 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    lazy var placeHolderImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "NYTicon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        return imageView
+    }()
+    
     var currentBook: NYTimeBook!
     
     @objc private func favoritesButtonPressed(){
-        let favoritedBook = currentBook
+        let favoritedBook = FavoritedBook(weeks_on_list: currentBook.weeks_on_list, description: currentBook.description, title: currentBook.title, author: currentBook.author, book_image: currentBook.book_image, amazon_product_url: currentBook.amazon_product_url, date: FavoritedBook.getTimeStamp(), id: FavoritedBook.getIDForNewBook())
         
         do {
-            try? FavoriteBookPersistenceHelper.manager.save(newBook: favoritedBook!)
+            try? FavoriteBookPersistenceHelper.manager.save(newBook: favoritedBook)
         }
         presentAlert()
     }
@@ -124,10 +164,11 @@ class DetailViewController: UIViewController {
     
     private func setButtonConstraints() {
         NSLayoutConstraint.activate([
-            amazonButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150),
-            amazonButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-            amazonButton.heightAnchor.constraint(equalToConstant: 60),
-            amazonButton.widthAnchor.constraint(equalToConstant: 60),
+            amazonButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            amazonButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            amazonButton.heightAnchor.constraint(equalToConstant: 50),
+            amazonButton.widthAnchor.constraint(equalToConstant: 50),
             
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150),
             saveButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
@@ -146,8 +187,17 @@ class DetailViewController: UIViewController {
             titleLabel.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: bookImage.bottomAnchor),
             titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 70)
+            titleLabel.heightAnchor.constraint(equalToConstant: 70),
             
+            authorLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+            authorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 275),
+            authorLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
+            authorLabel.heightAnchor.constraint(equalToConstant: 70),
+            
+            weeksLabel.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor),
+            weeksLabel.topAnchor.constraint(equalTo: bookImage.topAnchor, constant: -70),
+            weeksLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
+            weeksLabel.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     
@@ -174,6 +224,8 @@ class DetailViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.2914385796, green: 0.1974040866, blue: 0.4500601888, alpha: 1)
         bookTextView.text = currentBook.description
         titleLabel.text = currentBook.title
+        authorLabel.text = currentBook.author
+        weeksLabel.text = "\(currentBook.weeks_on_list) weeks on best seller"
         
         ImageHelper.shared.getImage(urlStr: currentBook.book_image) { (result) in
             switch result {
@@ -181,11 +233,8 @@ class DetailViewController: UIViewController {
                 print(error)
             case .success(let imageFromOnline):
                 DispatchQueue.main.async {
-                    UIView.transition(with: self.bookImage, duration: 1.3, options: [.transitionCurlUp, .curveEaseInOut], animations: {
-                        self.bookImage.image = imageFromOnline
-                    }, completion: nil)
+                    self.bookImage.image = imageFromOnline
                 }
-                
             }
         }
     }
@@ -204,8 +253,9 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(outerView)
+        view.addSubview(bookImage)
         setConstraints()
         configureUI()
-        
     }
 }

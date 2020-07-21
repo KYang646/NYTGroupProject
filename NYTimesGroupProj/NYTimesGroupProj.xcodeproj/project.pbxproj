@@ -128,9 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				746A7DED235A3D6F0029FBE9 /* bestSellersViewController.swift */,
+				973D4EF0235A68C60008E54A /* DetailViewController.swift */,
 				746A7E0C235A3ECA0029FBE9 /* SettingsViewController.swift */,
 				746A7E0E235A3EDB0029FBE9 /* FavoritesViewController.swift */,
-				973D4EF0235A68C60008E54A /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -439,6 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5CMXYD37HJ;
 				INFOPLIST_FILE = NYTimesGroupProj/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -447,7 +448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Orion.NYTimesGroupProj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -456,6 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5CMXYD37HJ;
 				INFOPLIST_FILE = NYTimesGroupProj/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,7 +466,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Orion.NYTimesGroupProj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

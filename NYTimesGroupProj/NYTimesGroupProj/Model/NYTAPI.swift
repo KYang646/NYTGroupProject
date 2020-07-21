@@ -36,13 +36,41 @@ struct Results: Codable {
 
 struct NYTimeBook: Codable {
     let weeks_on_list: Int
-//    let publisher: Publisher
     let description: String
     let title: String
     let author: String
     let book_image: String
     let amazon_product_url: String
-
 }
 
+
+struct FavoritedBook: Codable {
+    let weeks_on_list: Int
+    let description: String
+    let title: String
+    let author: String
+    let book_image: String
+    let amazon_product_url: String
+    let date: String
+    let id: Int
+    
+    static func getIDForNewBook() -> Int {
+        do {
+            let books = try FavoriteBookPersistenceHelper.manager.getBooks()
+            let max = books.map{$0.id}.max() ?? 0
+            return max + 1
+        } catch {
+            print(error)
+        }
+       return 0
+    }
+    
+    static func getTimeStamp() -> String {
+           let currentDate = Date()
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "MMMM-dd-yyyy, h:mm a"
+           
+           return dateFormatter.string(from: currentDate)
+       }
+}
 

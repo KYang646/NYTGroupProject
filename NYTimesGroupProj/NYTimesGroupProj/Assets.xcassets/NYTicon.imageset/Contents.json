@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "giftguide-NYT-headshot-square320.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "amazon-icon.png",
       "scale" : "2x"
     },
     {

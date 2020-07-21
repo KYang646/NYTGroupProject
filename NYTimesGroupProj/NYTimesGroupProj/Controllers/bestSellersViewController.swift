@@ -34,8 +34,6 @@ class bestSellersViewController: UIViewController {
         return picker
     }()
     
-
-    
     var books = [NYTimeBook]() {
         didSet {
             booksCollectionView.reloadData()
@@ -79,7 +77,6 @@ class bestSellersViewController: UIViewController {
     }
     
     
-    
     //MARK: -- Constraints
     private func setCollectionViewConstraints() {
         NSLayoutConstraint.activate([
@@ -96,7 +93,6 @@ class bestSellersViewController: UIViewController {
             genrePicker.widthAnchor.constraint(equalTo: view.widthAnchor),
             genrePicker.heightAnchor.constraint(equalToConstant: 305),
             genrePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
         ])
     }
     
@@ -109,16 +105,10 @@ class bestSellersViewController: UIViewController {
         return .lightContent
     }
     
-   override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+    override func viewWillAppear(_ animated: Bool) {
+        loadCategoriesData()
+        loadUserDefaults()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +116,16 @@ class bestSellersViewController: UIViewController {
         setConstraints()
         loadCategoriesData()
         
+    }
+    
+    private func loadUserDefaults(){
+        if let rowInteger = UserDefaults.standard.object(forKey: "rowNumber") as? Int, let category = UserDefaults.standard.object(forKey: "categoryName") as? String{
+            selectedCategory = category
+            genrePicker.selectRow(rowInteger, inComponent: 0, animated: true)
+            loadBooksInSelectedCategory()
+        } else {
+            print("Hi")
+        }
     }
 }
 
@@ -160,10 +160,9 @@ extension bestSellersViewController: UICollectionViewDelegate {
         let detailVC = DetailViewController()
         let currentBook = books[indexPath.row]
         detailVC.currentBook = currentBook
-    
-        detailVC.modalPresentationStyle = .fullScreen
         detailVC.modalTransitionStyle = .crossDissolve
-        present(detailVC, animated: true, completion: nil)
+        detailVC.modalPresentationStyle = .fullScreen
+        tabBarController?.present(detailVC, animated: true, completion: nil)
     }
 }
 
